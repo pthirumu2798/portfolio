@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Student Info</title>
+    </head>
+    <body>
+        <h2>Enter Student Details</h2>
+        <div id="demo">
+            <input type="text" placeholder="Name" id="name"><br><br>
+            <input type="text" placeholder="Student ID" id="studentid"><br><br>
+            <input type="text" placeholder="University" id="university"><br><br>
+            <input type="text" placeholder="Course" id="course"><br><br>
+            <input type="text" placeholder="Year" id="year"><br><br>
+        </div>
+        
+        <button onclick="insert()">Insert Data</button>
+        <button onclick="showInfo()">Show Info</button>
+
+        <h3>Stored Student Records:</h3>
+        <div id="output"></div>
+
+        <script>
+            let students = [];
+
+            function insert() {
+                
+                const name = document.getElementById("name").value;
+                const sid = document.getElementById("studentid").value;
+                const univ = document.getElementById("university").value;
+                const course = document.getElementById("course").value;
+                const year = document.getElementById("year").value;
+
+                if (name === "" || sid === "" || univ === "" || course === "" || year === "") {
+                    document.getElementById("output").innerHTML = "<span>Please fill all the fields!</span>";
+                    return;
+                }
+
+                const person = {
+                    name: name,
+                    sid: sid,
+                    univ: univ,
+                    course: course,
+                    year: year,
+                    description: function() {
+                        return "I am " + this.name + 
+                               ", my student ID is " + this.sid + 
+                               ". I am from "+ this.univ +
+                               " university, from the background of " + this.course + 
+                               " in the year " + this.year + ".";
+                    }
+                };
+
+                
+                students.push(person);
+
+            
+                document.getElementById("name").value = "";
+                document.getElementById("studentid").value = "";
+                document.getElementById("university").value = "";
+                document.getElementById("course").value = "";
+                document.getElementById("year").value = "";
+
+                document.getElementById("output").innerHTML = "<span style='color: green;'>Student record added successfully!</span>";
+            }
+
+            function showInfo() {
+                if (students.length === 0) {
+                    document.getElementById("output").innerHTML = "<span style='color: red;'>No records found!</span>";
+                    return;
+                }
+
+                let result = "<ul>";
+                students.forEach((student, index) => {
+                    result += `<li><strong>Record ${index + 1}:</strong> ${student.description()}</li>`;
+                });
+                result += "</ul>";
+
+                document.getElementById("output").innerHTML = result;
+            }
+        </script>
+    </body>
+</html>

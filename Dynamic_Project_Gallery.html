@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Project Portfolio</title>
+  <style>
+    /* Global Styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Roboto', Arial, sans-serif;
+      display: flex;
+      min-height: 100vh;
+      margin: 0;
+      background-color: #f8f9fa;
+    }
+
+    /* Sidebar Styles */
+    .sidebar {
+      width: 280px;
+      background-color: #343a40;
+      color: #f8f9fa;
+      display: flex;
+      flex-direction: column;
+      padding: 20px;
+      box-shadow: 3px 0 10px rgba(0, 0, 0, 0.2);
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow-y: auto;
+    }
+
+    .sidebar h2 {
+      text-align: center;
+      font-size: 24px;
+      margin-bottom: 20px;
+      border-bottom: 2px solid #ffc107;
+      padding-bottom: 10px;
+    }
+
+    .profile {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .profile img {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid #ffc107;
+    }
+
+    .profile p {
+      margin-top: 10px;
+      font-size: 14px;
+      color: #ddd;
+    }
+
+    .project-list {
+      list-style-type: none;
+      padding: 0;
+      max-height: 500px; /* Set a maximum height */
+      overflow-y: auto;  /* Enable scrolling */
+    }
+
+    .project-list li {
+      background-color: #495057;
+      margin-bottom: 10px;
+      padding: 15px;
+      border-radius: 8px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s ease-in-out;
+    }
+
+    .project-list li:hover {
+      background-color: #ffc107;
+      color: #343a40;
+      transform: translateY(-3px);
+    }
+
+    /* Content Area Styles */
+    .content {
+      flex-grow: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .summary {
+      max-width: 600px;
+      font-size: 18px;
+      color: #343a40;
+      line-height: 1.6;
+      margin-top: 20px;
+    }
+
+    iframe {
+      width: 90%;
+      height: 90%;
+      border-radius: 12px;
+      border: none;
+      box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+      display: none;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .sidebar {
+        width: 100%;
+        height: auto;
+        box-shadow: none;
+        text-align: center;
+        padding-bottom: 10px;
+        position: fixed;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="sidebar">
+    <h2>My Portfolio</h2>
+    <div class="profile">
+      <img src="Pranith.png" alt="Your Photo">
+      <p>Pranith Kumar T</p>
+    </div>
+    <ul class="project-list" id="projectList"></ul>
+  </div>
+  <div class="content">
+    <h1 id="homeTitle">Welcome to My Portfolio</h1>
+    <p class="summary" id="homeSummary">I am a passionate web developer with experience in building interactive and responsive web applications. This portfolio showcases my projects, highlighting my skills and creativity.</p>
+    <iframe id="projectFrame" src="" frameborder="0"></iframe>
+  </div>
+
+  <script>
+    const projects = [
+      { title: "Basic HTML Styling", file: "task2/index_page.html" },
+      { title: "CSS Hover", file: "task3/css_hover.html" },
+      { title: "Welcome to JS", file: "task4/welcome_js.html" },
+      { title: "Calculator with JS", file: "task5/calculator.html" },
+      { title: "String Operation", file: "task8/string_operation.html" },
+      { title: "Grade Calculator", file: "task9/grade_calculator.html" },
+      { title: "Call-Stack with Array", file: "task10/call_stack_array.html" },
+      { title: "Star with Loops", file: "task11/star.html" },
+      { title: "Calculate Sum", file: "task12/calculate_sum.html" },
+      { title: "Age Calculator", file: "task18/age.html" },
+
+      { title: "Star Color", file: "task13/star_color.html" },
+      { title: "Student Details", file: "task14/student_details.html" },
+      { title: "Student Info/Records", file: "task15/student_info.html" },
+      { title: "Forms", file: "task16/forms.html" },
+      { title: "Checkout Form", file: "task17/Checkout Form.html" }
+    ];
+
+    function loadProject(projectFile) {
+      document.getElementById('homeTitle').style.display = 'none';
+      document.getElementById('homeSummary').style.display = 'none';
+      document.getElementById('projectFrame').src = projectFile;
+      document.getElementById('projectFrame').style.display = 'block';
+    }
+
+    function generateProjectList() {
+      const listContainer = document.getElementById('projectList');
+      projects.forEach(project => {
+        const listItem = document.createElement('li');
+        listItem.textContent = project.title;
+        listItem.onclick = () => loadProject(project.file);
+        listContainer.appendChild(listItem);
+      });
+    }
+
+    generateProjectList();
+  </script>
+</body>
+
+</html>

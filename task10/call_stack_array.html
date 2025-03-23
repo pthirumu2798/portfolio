@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Call Stack</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        #task-list {
+            margin-top: 20px;
+        }
+        #current-pipeline {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Task Call Stack</h1>
+
+    <label for="task-name">Task Name:</label>
+    <input type="text" id="task-name" placeholder="Enter Task Name">
+    <button id="add-task">Add Task</button>
+    <button id="undo-task">Undo Task</button>
+
+    <div id="current-pipeline">Current Pipeline: None</div>
+    
+    <div id="task-list">
+        <h3>Task List:</h3>
+        <ul id="tasks"></ul>
+    </div>
+
+    <script>
+    
+        let taskStack = [];
+        function addTask() {
+            const taskInput = document.getElementById("task-name");
+            const taskName = taskInput.value.trim();
+
+            if (taskName) {
+                taskStack.push(taskName); 
+                updateTaskList();
+                updateCurrentPipeline();
+                taskInput.value = '';
+            } else {
+                alert("Please enter a task name.");
+            }
+        }
+
+        function undoTask() {
+            if (taskStack.length > 0) {
+                taskStack.pop(); 
+                updateTaskList();
+                updateCurrentPipeline();
+            } else {
+                alert("No tasks to undo.");
+            }
+        }
+        function updateTaskList() {
+            const taskList = document.getElementById("tasks");
+            taskList.innerHTML = '';
+            taskStack.forEach((task, index) => {
+                const listItem = document.createElement("li");
+                listItem.textContent = `${index + 1}. ${task}`;
+                taskList.appendChild(listItem);
+            });
+        }
+        function updateCurrentPipeline() {
+            const pipelineDisplay = document.getElementById("current-pipeline");
+            if (taskStack.length === 0) {
+                pipelineDisplay.textContent = "Current Pipeline: None";
+            } else {
+                pipelineDisplay.textContent = `Current Pipeline: ${taskStack[taskStack.length - 1]}`;
+            }
+        }
+        document.getElementById("add-task").addEventListener("click", addTask);
+        document.getElementById("undo-task").addEventListener("click", undoTask);
+    </script>
+
+</body>
+</html>
